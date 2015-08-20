@@ -163,7 +163,7 @@ PIPELINE_CSS = {
     'firefox': {
         'source_filenames': (
             'css/sandstone/sandstone.less',
-            'css/firefox/menu.less',
+            'css/base/menu.less',
             'css/firefox/template.less',
             'css/tabzilla/tabzilla-static.less',
         ),
@@ -172,7 +172,7 @@ PIPELINE_CSS = {
     'firefox_all': {
         'source_filenames': (
             'css/base/mozilla-share-cta.less',
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/all.less',
         ),
         'output_filename': 'css/firefox_all-bundle.css',
@@ -195,7 +195,7 @@ PIPELINE_CSS = {
     },
     'firefox_unsupported_systems': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/unsupported-systems.less',
         ),
         'output_filename': 'css/firefox_unsupported_systems-bundle.css',
@@ -217,7 +217,7 @@ PIPELINE_CSS = {
     'firefox-dashboard': {
         'source_filenames': (
             'css/base/mozilla-accordion.less',
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/dashboard.less',
         ),
         'output_filename': 'css/firefox-dashboard-bundle.css',
@@ -305,7 +305,7 @@ PIPELINE_CSS = {
     },
     'firefox_faq': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/faq.less',
             'css/base/mozilla-accordion.less',
         ),
@@ -380,7 +380,7 @@ PIPELINE_CSS = {
     },
     'firefox_geolocation': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/base/mozilla-accordion.less',
             'css/base/mozilla-modal.less',
             'css/libs/mapbox-2.1.5.css',
@@ -392,7 +392,7 @@ PIPELINE_CSS = {
         'source_filenames': (
             'css/base/mozilla-modal.less',
             'css/base/mozilla-share-cta.less',
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/developer.less',
         ),
         'output_filename': 'css/firefox_developer-bundle.css',
@@ -483,7 +483,7 @@ PIPELINE_CSS = {
     },
     'firefox_releases_index': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/releases-index.less',
         ),
         'output_filename': 'css/firefox_releases_index-bundle.css',
@@ -541,7 +541,7 @@ PIPELINE_CSS = {
     },
     'firefox_releasenotes': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/firefox/releasenotes.less',
         ),
         'output_filename': 'css/firefox_releasenotes-bundle.css',
@@ -575,7 +575,7 @@ PIPELINE_CSS = {
     },
     'installer_help': {
         'source_filenames': (
-            'css/firefox/menu-resp.less',
+            'css/base/menu-resp.less',
             'css/base/mozilla-modal.less',
             'css/firefox/installer-help.less',
         ),
@@ -858,6 +858,13 @@ PIPELINE_CSS = {
             'css/facebookapps/downloadtab.less',
         ),
         'output_filename': 'css/facebookapps_downloadtab-bundle.css',
+    },
+    'thunderbird-organizations': {
+        'source_filenames': (
+            'css/base/menu.less',
+            'css/firefox/organizations.less',
+        ),
+        'output_filename': 'css/thunderbird-organizations-bundle.css',
     },
     'thunderbird-start': {
         'source_filenames': (

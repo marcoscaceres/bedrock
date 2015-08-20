@@ -36,6 +36,8 @@ urlpatterns = patterns('',
         bedrock.releasenotes.views.latest_notes,
         {'product': 'thunderbird'}, name='thunderbird.notes'),
 
+    page('thunderbird/organizations', 'thunderbird/organizations.html'),
+
     # Start pages by channel
     page('thunderbird/release/start', 'thunderbird/start/release.html'),
 )
