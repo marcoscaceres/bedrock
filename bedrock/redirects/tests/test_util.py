@@ -176,6 +176,17 @@ class TestRedirectUrlPattern(TestCase):
         eq_(resp.status_code, 301)
         eq_(resp['Location'], '/pt-BR/donnie/the/walrus/')
 
+    def test_locale_value_capture_no_locale(self):
+        """
+        Should get locale value in kwargs and not break if no locale in URL.
+        """
+        resolver = get_resolver([redirect(r'^iam/the/(?P<name>.+)/$',
+                                          '/{locale}donnie/the/{name}/')])
+        middleware = RedirectsMiddleware(resolver)
+        resp = middleware.process_request(self.rf.get('/iam/the/walrus/'))
+        eq_(resp.status_code, 301)
+        eq_(resp['Location'], '/donnie/the/walrus/')
+
     def test_no_locale_prefix(self):
         """
         Should be able to define a redirect that ignores locale prefix.
@@ -190,3 +201,14 @@ class TestRedirectUrlPattern(TestCase):
         resp = middleware.process_request(self.rf.get('/iam/the/walrus/'))
         eq_(resp.status_code, 301)
         eq_(resp['Location'], '/donnie/the/walrus/')
+
+    def test_empty_unnamed_captures(self):
+        """
+        Should be able to define an optional unnamed capture.
+        """
+        resolver = get_resolver([redirect(r'^iam/the(/.+)?/$', '/donnie/the{}/',
+                                          locale_prefix=False)])
+        middleware = RedirectsMiddleware(resolver)
+        resp = middleware.process_request(self.rf.get('/iam/the/'))
+        eq_(resp.status_code, 301)
+        eq_(resp['Location'], '/donnie/the/')
