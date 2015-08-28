@@ -25,13 +25,14 @@ def register(patterns):
     redirectpatterns.extend(patterns)
 
 
-def get_resolver():
-    return RegexURLResolver(r'^/', redirectpatterns)
+def get_resolver(patterns=None):
+    return RegexURLResolver(r'^/', patterns or redirectpatterns)
 
 
 def header_redirector(header_name, regex, match_dest, nomatch_dest, case_sensitive=False):
     flags = 0 if case_sensitive else re.IGNORECASE
     regex_obj = re.compile(regex, flags)
+    header_name = 'HTTP_' + header_name.upper().replace('-', '_')
 
     def decider(request, *args, **kwargs):
         value = request.META.get(header_name, '')
@@ -45,7 +46,7 @@ def header_redirector(header_name, regex, match_dest, nomatch_dest, case_sensiti
 
 
 def ua_redirector(regex, match_dest, nomatch_dest, case_sensitive=False):
-    return header_redirector('HTTP_USER_AGENT', regex, match_dest, nomatch_dest, case_sensitive)
+    return header_redirector('user-agent', regex, match_dest, nomatch_dest, case_sensitive)
 
 
 def redirect(pattern, to, permanent=True, locale_prefix=True, anchor=None, name=None,
