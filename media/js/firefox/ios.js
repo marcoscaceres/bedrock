@@ -13,6 +13,7 @@ if (typeof window.Mozilla === 'undefined') {
     var $body = $('body');
     var $html = $('html');
     var COUNTRY_CODE = '';
+    var marketState = 'Unknown';
 
     // Countries in which Firefox for iOS is available.
     // Add two-letter country codes (lowercase) to this array to
@@ -35,6 +36,9 @@ if (typeof window.Mozilla === 'undefined') {
         for (var i = 0; i < marketCountries.length; i++) {
             if (marketCountries[i].match(COUNTRY_CODE)) {
                 $body.addClass('in-market');
+                marketState = 'In Market';
+            } else {
+                marketState = 'Out of Market';
             }
         }
     });
@@ -91,11 +95,11 @@ if (typeof window.Mozilla === 'undefined') {
     };
 
     if (window.isFirefox()) {
+
         // Firefox for Android
         if (window.isFirefoxMobile()) {
-
             swapState('state-fx-android');
-            state = 'Firefox for Android';
+            state = 'Firefox Android: ' + marketState;
 
         // Firefox for Desktop
         } else {
@@ -111,21 +115,21 @@ if (typeof window.Mozilla === 'undefined') {
 
                     // Variation #1: Firefox 31+ signed IN to Sync (default)
                     if (config.setup) {
-
                         swapState('state-fx-signed-in');
-                        state = 'Firefox 31 or Higher: Signed-In';
+                        state = 'Firefox Desktop: Signed-In: ' + marketState;
 
                     // Variation #2: Firefox 31+ signed OUT of Sync
                     } else {
                         swapState('state-fx-signed-out');
-                        state = 'Firefox 31 or Higher: Signed-Out';
+                        state = 'Firefox Desktop: Signed-Out: ' + marketState;
                     }
 
                     // Call GA tracking here to ensure it waits for the
                     // getConfiguration async call
                     window.dataLayer.push({
-                        event: 'page-load',
-                        browser: state
+                        event: 'ios-page-interactions',
+                        interaction: 'page-load',
+                        loadState: state
                     });
                 });
             }
@@ -135,12 +139,21 @@ if (typeof window.Mozilla === 'undefined') {
     // Firefox for iOS
     } else if (isFirefoxiOS()) {
         swapState('state-fx-ios');
-        state = 'Firefox for iOS';
+        state = 'Firefox iOS: ' + marketState;
 
     // Not Firefox
     } else {
         swapState('state-not-fx');
-        state = 'Not Firefox';
+        state = 'Not Firefox: ' + marketState;
+    }
+
+    // Send page state to GA if it hasn't already been sent
+    if (syncCapable === false) {
+        window.dataLayer.push({
+            event: 'ios-page-interactions',
+            interaction: 'page-load',
+            loadState: state
+        });
     }
 
 })(window.jQuery, window.Mozilla);
